@@ -19,6 +19,10 @@ dbfile = File.expand_path("../config/database.yml", __FILE__)
 #  end
 #end
 
+def darwin_only(require_as)
+  RbConfig::CONFIG['host_os'] =~ /darwin/ && require_as
+end
+
 group :production do
   gem 'pg'
 end
@@ -62,4 +66,6 @@ end
 group :development do
   gem 'guard'
   gem 'guard-rspec'
+  gem 'growl', :require => darwin_only('growl')
+  gem 'growl_notify', :require => darwin_only('growl_notify')
 end
